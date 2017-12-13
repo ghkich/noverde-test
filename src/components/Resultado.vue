@@ -94,7 +94,7 @@ export default {
             });
         },
         formatarParaDecimal(valorString) {
-            return valorString.split('.').join("");
+            return parseInt(valorString.split('.').join(""));
         },
         formatarParaReal(valorDecimal) {
             var valorString = String(valorDecimal).replace('.', ',');
