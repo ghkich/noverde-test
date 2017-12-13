@@ -1,0 +1,203 @@
+@import "_variables";
+
+.wizard-header {
+    width: 100%;
+    min-height: 92px;
+    box-sizing: border-box;
+    padding: 1.4rem 1rem 1rem;
+    border-bottom: 2px solid $gray-400;
+    background-color: $white;
+}
+
+.wizard-steps {
+    display: flex;
+    padding:0;
+} 
+
+.wizard-step {
+    flex: 1;
+    padding: 0 3rem;
+    list-style: none;
+    font-size: .75rem;
+    font-weight: 600;
+    color: $primary;
+    text-align: center;
+    position: relative;
+
+    &::before,
+    &::after {
+        content: '';
+        display: block;
+        background-color: $gray-200;
+        transition: background-color .15s ease-in-out;
+    }
+
+    &::before {
+        width: 1.9rem;
+        height: 1.9rem;
+        margin: 0 auto .5rem;
+        border-radius: 50%;
+        position: relative;
+        z-index: 1;
+    }
+
+    &::after {
+        width: 100%;
+        height: .5rem;
+        position: absolute;
+        z-index: 0;
+        right: 50%;
+        top: .7rem;
+    }
+
+    &:first-child {
+        padding-left: 0;
+
+        &::after {
+            display: none;
+        }
+    }
+
+    &:last-child { 
+        padding-right: 0;
+        line-height: 1.5;
+
+        &::after {
+            padding-right: 3rem;
+            right: calc(50% - 1.5rem);
+        }
+    }
+}
+
+.wizard-step .step-number {
+    display: none;
+}
+
+.wizard-step.active,
+.wizard-step.complete {
+    &::before {
+        background-color: $primary;
+    }
+
+    &::after {
+        background-color: $primary;
+    }
+}
+
+.wizard .inner-box {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.wizard.wizard-boxed-xs .inner-box,
+.wizard .boxed-xs.inner-box { max-width: 450px; }
+.wizard.wizard-boxed-md .inner-box,
+.wizard .boxed-md.inner-box { max-width: 650px; }
+.wizard.wizard-boxed-lg .inner-box,
+.wizard .boxed-lg.inner-box { max-width: 850px; }
+
+.wizard-body {
+    background-color: $gray-100;
+    padding: 10rem 2rem;
+}
+
+.wizard-body.loading::before {
+    content: '';
+    display: block;
+    background-color: rgba($white, 0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.wizard-body.loading::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 40px;
+    border: 6px solid $gray-300;
+    border-top-color: $primary;
+    border-radius: 50%;
+    animation: loader-rotate 1s linear infinite;
+    position: absolute;
+    left: calc(50% - 20px);
+    top: calc(50% - 20px);
+    z-index: 101;
+}
+
+@keyframes loader-rotate {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.wizard.wizard-fixed {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    .wizard-header {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 10;
+    }
+
+    .wizard-body {
+        position: absolute;
+        top: 96px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 5;
+
+        overflow-y: auto;
+    }
+}
+
+@media (max-width:  545px) {
+    .wizard-step {
+        display: none;
+
+        .step-number {
+            display: block;
+        }
+    }
+
+    .wizard-step.active {
+        display: list-item;
+        font-size: 2rem;
+        padding: 0 3rem;
+
+        .step-number {
+            font-size: .8rem;
+        }
+
+        &::before,
+        &::after {
+            display: none;
+        }
+
+        &:last-child .step-number {
+            display: none;
+        }
+    }
+
+    .wizard-body {
+        padding: 5rem 1.2rem;
+    }
+
+    .wizard.wizard-fixed .wizard-body {
+        top: 92px;
+    }
+}
